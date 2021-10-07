@@ -1,5 +1,5 @@
 """Snake-Duel, a 1v1 multiplayer spin on the classic game Snake.
-   Created for project module M6 by Viktor Stubbfält and Einar Johansson."""
+   Created for project module M6 by Viktor Stubbfält and Einar dJohansson."""
 
 ### Imports:
 import pygame
@@ -41,12 +41,12 @@ def main(screen):
             if event.type == move_event:  # Every SPEED ms:
                 player_1.move()           # Move the snakes
 
-        ### Resets, updates, and then draws the playing field:
-        grid.reset()
-        grid.update(player_1)
-        grid.draw(screen)
+                ### Resets, updates, and then draws the playing field:
+                grid.reset()
+                grid.update(player_1)
+                grid.draw(screen)
 
-        ### The *actual* drawing of this frame:
+        ### The *actual* rendering of this frame:
         pygame.display.flip()
 
 ### Initiate a "display variable" to draw things on:

@@ -18,6 +18,9 @@ class Grid:
     def update(self, player_1):
         """Updates the data of grid."""
         self.data[player_1.x][player_1.y] = player_1.color
+        self.data[player_1.apple.x][player_1.apple.y] = player_1.apple.color
+        for tail in player_1.tails:
+            self.data[tail.x][tail.y] = tail.color
 
     def draw(self, screen):
         """Draws the contents of the playing field."""
