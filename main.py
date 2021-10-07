@@ -1,25 +1,19 @@
 """Snake-Duel, a 1v1 multiplayer spin on the classic game Snake.
-   Created for project module M6 by Viktor Stubbfält and Einar dJohansson."""
+   Created for project module M6 by Viktor Stubbfält and Einar Johansson."""
 
 ### Imports:
 import pygame
 from snake import Snake
 from grid import Grid
-
-### Global variables:
-SCREEN_HEIGHT = 720
-SCREEN_WIDTH = 720
-SPEED = 100 # Milliseconds between each step of snake movement
-WIDTH = 18 # Width and height of all squares ingame
-GRID_SIZE = SCREEN_WIDTH // WIDTH # Amount of squares for one side
+from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE, SPEED
 
 def main(screen):
     """Main-function for the game."""
 
     pygame.init()                 # Initiates pygame
     program_running = True        # Is the program running or not
-    grid = Grid(GRID_SIZE, WIDTH) # Initates the grid variable with black colors
-    player_1 = Snake(20, 20, 1)   # Player 1
+    grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
+    player_1 = Snake(12, 12, 1)   # Player 1
 
     ### Sets up an event every SPEED ms to move the snakes:
     move_event = pygame.USEREVENT
@@ -45,6 +39,7 @@ def main(screen):
                 grid.reset()
                 grid.update(player_1)
                 grid.draw(screen)
+                grid.draw_lines(screen)
 
         ### The *actual* rendering of this frame:
         pygame.display.flip()

@@ -1,11 +1,10 @@
 """Contains the class for a Grid object."""
 
+### Imports:
 import pygame
 from tail import Tail
 from apple import Apple
-
-RED = (255,0,0)
-BLUE = (0,0,255)
+from global_parameters import RED, BLUE
 
 class Snake:
     """A snake to be controlled by a player."""
@@ -24,11 +23,11 @@ class Snake:
             self.color = BLUE
 
     def move(self):
-        """Move the snake head by 1 step.
-        0 = up, 1 = right, 2 = down, 3 = left."""
+        """Move the snake by 1 step. 0 = up, 1 = right, 2 = down, 3 = left."""
 
         self.move_tail()
 
+        ### Moves head:
         if self.direction == 0:
             self.y -= 1
         elif self.direction == 1:
@@ -39,6 +38,9 @@ class Snake:
             self.x -= 1
 
         self.apple_collision()
+        # Lägg till self collision
+        # Lägg till wall collision
+        # Lägg till opponent collision
 
     def move_tail(self):
         """Move the chain of tails forward one position."""
@@ -72,3 +74,5 @@ class Snake:
                 self.direction = 2
             if keys[pygame.K_a] and self.direction != 1:
                 self.direction = 3
+
+        # Lägg till Player 2 controls
