@@ -38,7 +38,7 @@ def main(screen):
                 ### Resets, updates, and then draws the playing field:
                 grid.reset()
                 grid.update(player_1)
-                grid.draw(screen)
+                grid.draw_squares(screen)
                 grid.draw_lines(screen)
 
         ### The *actual* rendering of this frame:

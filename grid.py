@@ -23,7 +23,7 @@ class Grid:
         for tail in player_1.tails:
             self.data[tail.x][tail.y] = tail.color
 
-    def draw(self, screen):
+    def draw_squares(self, screen):
         """Draws the squares of the playing field."""
         for x, column in enumerate(self.data):
             for y, row in enumerate(column):
