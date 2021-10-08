@@ -2,25 +2,21 @@
 
 ### Imports:
 import pygame
+from square import Square
 from tail import Tail
 from apple import Apple
 from global_parameters import RED, BLUE
 
-class Snake:
+class Snake(Square):
     """A snake to be controlled by a player."""
     def __init__(self, x, y, player_id):
-        self.x = x
-        self.y = y
+        color = RED if player_id == 1 else BLUE
+        super().__init__(x, y, color) # Setup square 
         self.player_id = player_id
         self.direction = 0
         self.length = 0
         self.tails = []
         self.apple = Apple(self.player_id)
-
-        if self.player_id == 1:
-            self.color = RED
-        else:
-            self.color = BLUE
 
     def move(self):
         """Move the snake by 1 step. 0 = up, 1 = right, 2 = down, 3 = left."""
