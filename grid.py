@@ -1,40 +1,31 @@
-"""Contains the class for a Grid object."""
-
-### Imports:
+from typing import List, Tuple
+from pygame import Surface
 import pygame
-from global_parameters import WHITE, BLACK
+from square import Square
+from global_parameters import COLUMNS, ROWS, SCREEN_WIDTH, SCREEN_HEIGHT, BLACK, SQUARE_HEIGHT, SQUARE_WIDTH, WHITE
 
 class Grid:
-    """Color data stored in a grid."""
-    def __init__(self, squares, width, size):
-        self.squares = squares
-        self.width = width
-        self.size = size
-        self.data = [[BLACK for _ in range(self.squares)] for _ in range(self.squares)]
+    def __init__(self, screen: Surface) -> None:
+        self.squares = self.createGrid()
+        self.screen = screen
+        self.drawFlag = True
 
-    def reset(self):
-        """Resets all grid data to black color."""
-        self.data = [[BLACK for _ in range(self.squares)] for _ in range(self.squares)]
+    def createGrid(self) -> List[List[Square]]:
+        '''Gör en 2d-lista med alla squares'''
+        return [[Square(col * SQUARE_WIDTH, row * SQUARE_HEIGHT, BLACK) for col in range(COLUMNS)] for row in range(ROWS)]
 
-    def update(self, player_1):
-        """Updates the data of grid."""
-        self.data[player_1.x][player_1.y] = player_1.color
-        self.data[player_1.apple.x][player_1.apple.y] = player_1.apple.color
-        for tail in player_1.tails:
-            self.data[tail.x][tail.y] = tail.color
+    def draw(self) -> None:
+        '''Rita alla squares'''
+        for row in self.squares:
+            for square in row:
+                pygame.draw.rect(self.screen, square.color, square.rect)
+                pygame.draw.lines(self.screen, WHITE, True, square.points)
 
-    def draw_squares(self, screen):
-        """Draws the squares of the playing field."""
-        for x, column in enumerate(self.data):
-            for y, row in enumerate(column):
-                square = pygame.Rect(
-                         x * self.width + (x * self.width) % self.width, # Left edge position
-                         y * self.width + (y * self.width) % self.width, # Top edge position
-                         self.width, self.width)                         # Width, height
-                pygame.draw.rect(screen, row, square)                    # Draws the square
+        self.drawFlag = False
 
-    def draw_lines(self, screen):
-        """Draws grid lines on the playing field."""
-        for i, _ in enumerate(self.data):
-            pygame.draw.line(screen, WHITE, (i * self.width, 0), (i * self.width, self.size))
-            pygame.draw.line(screen, WHITE, (0, i* self.width), (self.size, i * self.width))
+    def setSquare(self, index: Tuple[int, int], color: Tuple[int, int, int]) -> None:
+        self.squares[index[0]][index[1]].color = color
+        self.drawFlag = True
+
+    def getSquare(self, index: Tuple[int, int]):
+        return self.squares[index[0]][index[1]]

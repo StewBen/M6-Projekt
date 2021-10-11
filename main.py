@@ -1,52 +1,59 @@
-"""Snake-Duel, a 1v1 multiplayer spin on the classic game Snake.
-   Created for project module M6 by Viktor Stubbfält and Einar Johansson."""
+"""Mall för ett pygame spel."""
 
 ### Imports:
 import pygame
-from snake import Snake
+
+from global_parameters import *
 from grid import Grid
-from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE, SPEED
+from snake import Snake
 
 def main(screen):
-    """Main-function for the game."""
+    """Main-funktion för spelet."""
 
-    pygame.init()                 # Initiates pygame
-    program_running = True        # Is the program running or not
-    grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
-    player_1 = Snake(12, 12, 1)   # Player 1
-
-    ### Sets up an event every SPEED ms to move the snakes:
+    # Boiler plate
+    pygame.init()
+    clock = pygame.time.Clock() 
     move_event = pygame.USEREVENT
-    pygame.time.set_timer(move_event, SPEED)
+    pygame.time.set_timer(move_event, 100)
 
-    ### Our main-loop, every iteration of the loop = 1 frame:
+    # Gör ett grid
+    grid = Grid(screen)
+
+    # Skapa lite ormar :)
+    snake1 = Snake(1)
+    snake2 = Snake(2)
+
+    ### Vår main-loop, varje iteration av loop:en = 1 frame:
+    program_running = True
+    winner = ''
     while program_running:
-
-        ### Checks for keypresses:
+        ### Checks for keypresses:  
         keys = pygame.key.get_pressed()
-        player_1.change_direction(keys)
+        snake1.change_direction(keys)
+        snake2.change_direction(keys)
 
-        ### Checks for game events:
+        ### Kollar efter mus/tangenttryck:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT: # If you close the window
-                pygame.quit()             # Quits the program
-                return None               # Solves odd error
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return None
 
             if event.type == move_event:  # Every SPEED ms:
-                player_1.move()           # Move the snakes
+                if snake1.move(grid) == 'lost':
+                    program_running = False
+                    winner = 'P2'
+                elif snake2.move(grid) == 'lost': # Move the snakes
+                    program_running = False
+                    winner = 'P1'
 
-                ### Resets, updates, and then draws the playing field:
-                grid.reset()
-                grid.update(player_1)
-                grid.draw_squares(screen)
-                grid.draw_lines(screen)
+        if grid.drawFlag:
+            grid.draw()
 
-        ### The *actual* rendering of this frame:
+        clock.tick(FPS)
         pygame.display.flip()
+    print(f'Winner is {winner}')
 
-### Initiate a "display variable" to draw things on:
 display_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption('Snake Duel') # The title of the window
+pygame.display.set_caption('Snake Duel')
 
-### Starts the game!
 main(display_window)

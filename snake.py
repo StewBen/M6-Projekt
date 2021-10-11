@@ -1,66 +1,54 @@
-"""Contains the class for a Grid object."""
-
-### Imports:
+from random import randint
+from typing import List, Tuple
+import copy
 import pygame
+from global_parameters import BLACK, BLUE, COLUMNS, ORANGE, RED, ROWS, SQUARE_HEIGHT, SQUARE_WIDTH, WHITE
+from grid import Grid
 from square import Square
-from tail import Tail
-from apple import Apple
-from global_parameters import RED, BLUE
 
-class Snake(Square):
-    """A snake to be controlled by a player."""
-    def __init__(self, x, y, player_id):
-        color = RED if player_id == 1 else BLUE
-        super().__init__(x, y, color) # Setup square 
-        self.player_id = player_id
-        self.direction = 0
-        self.length = 0
-        self.tails = []
-        self.apple = Apple(self.player_id)
+class Snake:
+    def __init__(self, player_id: int) -> None:
+        '''Skapa en orm'''
+        self.player_id = player_id      # Spelarens id
+        self.head = Head(player_id)     # Ormens huvud
+        self.tail = []                  # Lista med gamla huvuden
+        self.direction = 0              # Färdriktning
+        self.tailLength = 5             # Hur många rutor i svansen
 
-    def move(self):
-        """Move the snake by 1 step. 0 = up, 1 = right, 2 = down, 3 = left."""
+    def getInfo(self):
+        '''Jätteful funktion, returnerar index och färg för alla rutor i svansen (inkl. huvudet)'''
+        # All info om svansen
+        info = [((square.row_index, square.column_index), square.color) for square in self.tail]
+        # Lägger till info om huvudet
+        info += [((self.head.row_index, self.head.column_index), self.head.color)]
+        return info
 
-        self.move_tail()
+    def move(self, grid: Grid) -> str:
+        '''Flytta ormen'''
+        # Gör en kopia av self.head och sätter den i början av svansen
+        old_head = copy.deepcopy(self.head)
+        old_head.color = ORANGE
+        self.tail.insert(0, old_head)
 
-        ### Moves head:
-        if self.direction == 0:
-            self.y -= 1
-        elif self.direction == 1:
-            self.x += 1
-        elif self.direction == 2:
-            self.y += 1
-        elif self.direction == 3:
-            self.x -= 1
+        # Om svansen är längre än max längden, ta bort sista och gör den svart
+        if len(self.tail) > self.tailLength:
+            last = self.tail.pop(len(self.tail)-1)
+            grid.setSquare(last.getIndex(), BLACK)
+        
+        # Flytta huvudet
+        self.head.move(self.direction)
+        
+        # Kolla om huvudet krocka
+        newhead = grid.getSquare(self.head.getIndex())
 
-        self.apple_collision()
-        # Lägg till self collision
-        # Lägg till wall collision
-        # Lägg till opponent collision
+        if newhead.color != BLACK: # Uppdatera för äpplen
+            return 'lost'
+        
+        # Uppdatera grid
+        self.update_grid(grid)
 
-    def move_tail(self):
-        """Move the chain of tails forward one position."""
-
-        ### Removes last tail:
-        for tail in self.tails:
-            tail.decrease_hp()
-            self.tails = [x for x in self.tails if not x.hp == 0]
-
-        ### Creates new first tail:
-        if self.length > 0:
-            self.tails.append(Tail(self.x, self.y, self.length, self.color))
-
-    def apple_collision(self):
-        """Checks for apple collision, if collision: adds a tail and a new apple."""
-        if self.x == self.apple.x and self.y == self.apple.y:
-            self.length += 1
-            self.apple = Apple(self.player_id)
-
-    def change_direction(self, keys):
-        """Changes the direction of the snake head.
-           Player 1: WASD controls
-           Player 2: Arrow key controls"""
-
+    def change_direction(self, keys) -> None:
+        '''Ändra färdriktningen för ormen'''
         if self.player_id == 1:
             if keys[pygame.K_w] and self.direction != 2:
                 self.direction = 0
@@ -70,5 +58,50 @@ class Snake(Square):
                 self.direction = 2
             if keys[pygame.K_a] and self.direction != 1:
                 self.direction = 3
+        else:
+            if keys[pygame.K_UP] and self.direction != 2:
+                self.direction = 0
+            if keys[pygame.K_RIGHT] and self.direction != 3:
+                self.direction = 1
+            if keys[pygame.K_DOWN] and self.direction != 0:
+                self.direction = 2
+            if keys[pygame.K_LEFT] and self.direction != 1:
+                self.direction = 3
 
-        # Lägg till Player 2 controls
+    def update_grid(self, grid: Grid):
+        '''Uppdatera ormens rutor i rutnätet'''
+        for info in self.getInfo():
+            index = info[0]
+            color = info[1]
+            grid.setSquare(index, color)
+
+class Head:
+    '''Klass för huvudet på ormen'''
+    def __init__(self, player_id) -> None:
+        '''Skapa ett huvud'''
+
+        # Vart i rutnätet huvudet ligger
+        self.row_index = randint(0, ROWS-1)
+        self.column_index = randint(0, COLUMNS-1)
+
+        # Huvudets färg
+        self.color = RED if player_id == 1 else BLUE
+
+    def move(self, direction: int) -> None:
+        '''Flytta huvudet i given riktning'''
+        if direction == 0:
+            self.row_index -= 1
+        elif direction == 1:
+            self.column_index += 1
+        elif direction == 2:
+            self.row_index += 1
+        elif direction == 3:
+            self.column_index -= 1
+
+        # Förhindrar out of bounds error
+        self.row_index %= ROWS
+        self.column_index %= COLUMNS
+
+    def getIndex(self) -> Tuple[int, int]:
+        '''Returnera index i rutnätet för huvudet'''
+        return (self.row_index, self.column_index)
