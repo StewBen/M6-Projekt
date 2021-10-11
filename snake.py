@@ -1,10 +1,9 @@
-from random import randint
-from typing import List, Tuple
 import copy
 import pygame
-from global_parameters import BLACK, BLUE, COLUMNS, ORANGE, RED, ROWS, SQUARE_HEIGHT, SQUARE_WIDTH, WHITE
+from apple import Apple
+from global_parameters import BLACK, GREEN, ORANGE
 from grid import Grid
-from square import Square
+from head import Head
 
 class Snake:
     def __init__(self, player_id: int) -> None:
@@ -14,6 +13,7 @@ class Snake:
         self.tail = []                  # Lista med gamla huvuden
         self.direction = 0              # Färdriktning
         self.tailLength = 5             # Hur många rutor i svansen
+        self.apple = Apple(player_id)   # Ett äpple som ormen ska äta
 
     def getInfo(self):
         '''Jätteful funktion, returnerar index och färg för alla rutor i svansen (inkl. huvudet)'''
@@ -25,9 +25,14 @@ class Snake:
 
     def move(self, grid: Grid) -> str:
         '''Flytta ormen'''
+        if not self.apple.updated:
+            # Rita äpplet
+            grid.setSquare(self.apple.getIndex(), self.apple.color)
+            self.apple.updated = True
+
         # Gör en kopia av self.head och sätter den i början av svansen
         old_head = copy.deepcopy(self.head)
-        old_head.color = ORANGE
+        old_head.color = ORANGE if self.player_id == 1 else GREEN
         self.tail.insert(0, old_head)
 
         # Om svansen är längre än max längden, ta bort sista och gör den svart
@@ -41,8 +46,11 @@ class Snake:
         # Kolla om huvudet krocka
         newhead = grid.getSquare(self.head.getIndex())
 
-        if newhead.color != BLACK: # Uppdatera för äpplen
+        if newhead.color != BLACK:
             return 'lost'
+        elif newhead.color == self.apple.color:
+            # Gör svansen en square längre.
+            pass
         
         # Uppdatera grid
         self.update_grid(grid)
@@ -74,34 +82,3 @@ class Snake:
             index = info[0]
             color = info[1]
             grid.setSquare(index, color)
-
-class Head:
-    '''Klass för huvudet på ormen'''
-    def __init__(self, player_id) -> None:
-        '''Skapa ett huvud'''
-
-        # Vart i rutnätet huvudet ligger
-        self.row_index = randint(0, ROWS-1)
-        self.column_index = randint(0, COLUMNS-1)
-
-        # Huvudets färg
-        self.color = RED if player_id == 1 else BLUE
-
-    def move(self, direction: int) -> None:
-        '''Flytta huvudet i given riktning'''
-        if direction == 0:
-            self.row_index -= 1
-        elif direction == 1:
-            self.column_index += 1
-        elif direction == 2:
-            self.row_index += 1
-        elif direction == 3:
-            self.column_index -= 1
-
-        # Förhindrar out of bounds error
-        self.row_index %= ROWS
-        self.column_index %= COLUMNS
-
-    def getIndex(self) -> Tuple[int, int]:
-        '''Returnera index i rutnätet för huvudet'''
-        return (self.row_index, self.column_index)

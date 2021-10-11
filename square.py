@@ -1,20 +1,20 @@
 from typing import Tuple
 import pygame
-from global_parameters import BLACK, SCREEN_HEIGHT, SCREEN_WIDTH, SQUARE_WIDTH, SQUARE_HEIGHT
+from global_parameters import SQUARE_WIDTH, SQUARE_HEIGHT
 
 class Square:
     '''Klass för en ruta i rutnätet'''
 
-    def __init__(self, x: int, y: int, color: Tuple[int, int, int]) -> None:
+    def __init__(self, col: int, row: int, color: Tuple[int, int, int]) -> None:
         '''Skapa en ruta'''
         # Pixel koordinater för rutan (x -> längst åt vänster, y -> högst upp)
-        self.x = x                      
-        self.y = y
+        self.x = col * SQUARE_WIDTH
+        self.y = row * SQUARE_HEIGHT
 
         # Index i rutnätet
-        self.row_index = 0 if self.y == 0 else int(self.y / SQUARE_HEIGHT) 
-        self.column_index = 0 if self.x == 0 else int(self.x / SQUARE_WIDTH)
-        
+        self.row_index = row
+        self.column_index = col
+
         # Rutans färg
         self.color = color 
         
@@ -31,4 +31,8 @@ class Square:
 
     def __repr__(self) -> str:
         '''Tjusig utskrift kanske'''
-        return f"(x: {self.x}, y: {self.y})"
+        return f"(rad: {self.row_index}, kolumn: {self.column_index})"
+    
+    def getIndex(self) -> Tuple[int, int]:
+        '''Returnera index i rutnätet'''
+        return (self.row_index, self.column_index)

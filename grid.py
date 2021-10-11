@@ -12,7 +12,7 @@ class Grid:
 
     def createGrid(self) -> List[List[Square]]:
         '''Gör en 2d-lista med alla squares'''
-        return [[Square(col * SQUARE_WIDTH, row * SQUARE_HEIGHT, BLACK) for col in range(COLUMNS)] for row in range(ROWS)]
+        return [[Square(col, row, BLACK) for col in range(COLUMNS)] for row in range(ROWS)]
 
     def draw(self) -> None:
         '''Rita alla squares'''
@@ -24,7 +24,7 @@ class Grid:
         self.drawFlag = False
 
     def setSquare(self, index: Tuple[int, int], color: Tuple[int, int, int]) -> None:
-        self.squares[index[0]][index[1]].color = color
+        self.getSquare(index).color = color
         self.drawFlag = True
 
     def getSquare(self, index: Tuple[int, int]):

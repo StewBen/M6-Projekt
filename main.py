@@ -3,7 +3,7 @@
 ### Imports:
 import pygame
 
-from global_parameters import *
+from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, FPS, SPEED
 from grid import Grid
 from snake import Snake
 
@@ -14,7 +14,7 @@ def main(screen):
     pygame.init()
     clock = pygame.time.Clock() 
     move_event = pygame.USEREVENT
-    pygame.time.set_timer(move_event, 100)
+    pygame.time.set_timer(move_event, SPEED)
 
     # Gör ett grid
     grid = Grid(screen)
@@ -29,6 +29,7 @@ def main(screen):
     while program_running:
         ### Checks for keypresses:  
         keys = pygame.key.get_pressed()
+
         snake1.change_direction(keys)
         snake2.change_direction(keys)
 
@@ -39,6 +40,7 @@ def main(screen):
                 return None
 
             if event.type == move_event:  # Every SPEED ms:
+                # Kolla om man ens move gjorde så man torska
                 if snake1.move(grid) == 'lost':
                     program_running = False
                     winner = 'P2'
