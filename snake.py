@@ -53,9 +53,9 @@ class Snake(Square):
 
     def wall_collision(self):
         """Checks if the snake has hit a wall."""
-        if self.x <= 0 or self.y <= 0:
+        if self.x < 0 or self.y < 0:
             return True
-        if self.x >= GRID_SIZE - 1 or self.y >= GRID_SIZE - 1:
+        if self.x >= GRID_SIZE or self.y >= GRID_SIZE:
             return True
 
     def apple_collision(self):

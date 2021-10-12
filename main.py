@@ -34,7 +34,7 @@ def main(screen):
 
             if event.type == move_event:  # Every SPEED ms:
                 player_1.move()           # Move the snakes
-                if player_1.wall_collision():
+                if player_1.wall_collision() or player_1.self_collision():
                     program_running = False
 
                 ### Resets, updates, and then draws the playing field:
