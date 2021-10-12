@@ -5,12 +5,14 @@
 import pygame
 from snake import Snake
 from grid import Grid
+from menu import gameover
 from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE, SPEED
 
 def main(screen):
     """Main-function for the game."""
 
     pygame.init()                 # Initiates pygame
+    pygame.font.init()            # Inits font handling
     program_running = True        # Is the program running or not
     grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
     player_1 = Snake(12, 12, 1)   # Player 1
@@ -35,6 +37,7 @@ def main(screen):
             if event.type == move_event:  # Every SPEED ms:
                 player_1.move()           # Move the snakes
                 if player_1.wall_collision() or player_1.tail_collision():
+                    gameover(screen)
                     break
 
                 ### Resets, updates, and then draws the playing field:

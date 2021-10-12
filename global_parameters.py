@@ -5,7 +5,7 @@ SCREEN_HEIGHT = 720
 SCREEN_WIDTH = SCREEN_HEIGHT
 WIDTH = 30 # Width and height of all squares ingame
 GRID_SIZE = SCREEN_WIDTH // WIDTH # Amount of squares for one side
-SPEED = 400 # Milliseconds between each step of snake movement
+SPEED = 200 # Milliseconds between each step of snake movement
 
 ### Colors:
 BLACK = (46,52,64)

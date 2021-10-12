@@ -4,13 +4,14 @@
 - [x] Wall collision (Viktor)
 - [x] Fixa apple collision (Viktor)
 - [ ] Om en orm kör in i sig själv
-- [ ] Game over screen
+- [x] Game over screen
 - [ ] Svårighetsgrad (ändra SPEED)
 - [ ] Ökande svårighetsgrad med tiden
 - [ ] Möjlighet att starta om
 - [x] Gör om grid data till 2d lista med squares
 
 ### Sedan multiplayer (dvs lägg till en till snake)
+- [ ] Visa vem som vann i game over text
 - [ ] Oavgjort vid huvudkrock
 - [ ] Krock med annan snake
 
