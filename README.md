@@ -2,7 +2,7 @@
 
 ### först singleplayer:
 -[ ] Wall collision (Viktor)
--[ ] Fixa apple collision (Viktor) Klar i main
+-[x] Fixa apple collision (Viktor)
 -[ ] Om en orm kör in i sig själv
 -[ ] Game over screen
 -[ ] Svårighetsgrad (ändra SPEED)
