@@ -3,7 +3,7 @@
 ### först singleplayer:
 - [x] Wall collision (Viktor)
 - [x] Fixa apple collision (Viktor)
-- [ ] Om en orm kör in i sig själv
+- [x] Om en orm kör in i sig själv
 - [x] Game over screen
 - [ ] Svårighetsgrad (ändra SPEED)
 - [ ] Ökande svårighetsgrad med tiden
