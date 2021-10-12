@@ -1,7 +1,7 @@
 # Grejor att göra:
 
 ### först singleplayer:
-- [ ] Wall collision (Viktor)
+- [x] Wall collision (Viktor)
 - [x] Fixa apple collision (Viktor)
 - [ ] Om en orm kör in i sig själv
 - [ ] Game over screen
