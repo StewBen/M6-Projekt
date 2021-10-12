@@ -5,7 +5,7 @@ import pygame
 from square import Square
 from tail import Tail
 from apple import Apple
-from global_parameters import RED, BLUE
+from global_parameters import RED, BLUE, GRID_SIZE
 
 class Snake(Square):
     """A snake to be controlled by a player."""
@@ -49,6 +49,13 @@ class Snake(Square):
         ### Creates new first tail:
         if self.length > 0:
             self.tails.append(Tail(self.x, self.y, self.length, self.color))
+
+    def wall_collision(self):
+        """Checks if the snake has hit a wall."""
+        if self.x <= 0 or self.y <= 0:
+            return True
+        if self.x >= GRID_SIZE - 1 or self.y >= GRID_SIZE - 1:
+            return True
 
     def apple_collision(self):
         """Checks for apple collision, if collision: adds a tail and a new apple."""
