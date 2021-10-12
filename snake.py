@@ -34,10 +34,6 @@ class Snake(Square):
             self.x -= 1
 
         self.apple_collision()
-        # Lägg till self collision
-
-        # Lägg till wall collision
-        # Lägg till opponent collision
 
     def move_tail(self):
         """Move the chain of tails forward one position."""
@@ -64,12 +60,13 @@ class Snake(Square):
             self.length += 1
             self.apple = Apple(self.player_id)
 
-    def self_collision(self):
+    def tail_collision(self):
         '''Returnerar om huvudet har krockat med sin svans'''
         for tail in self.tails:
             if tail.x == self.x and tail.y == self.y:
                 return True 
         return False
+
     def change_direction(self, keys):
         """Changes the direction of the snake head.
            Player 1: WASD controls
