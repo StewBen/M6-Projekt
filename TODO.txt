@@ -9,6 +9,7 @@ Gör en minimal viable prototype för:
     - Svårighetsgrad (ändra SPEED)
     - Ökande svårighetsgrad med tiden
     - Möjlighet att starta om
+    - Gör om grid data till 2d lista med squares (klar)
 
 
 - sedan multiplayer (dvs lägg till en till snake)
