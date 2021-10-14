@@ -6,7 +6,7 @@
 - [x] Om en orm kör in i sig själv
 - [x] Game over screen
 - [ ] Svårighetsgrad (ändra SPEED)
-- [ ] Ökande svårighetsgrad med tiden
+- [x] Ökande svårighetsgrad med tiden
 - [ ] Möjlighet att starta om
 - [x] Gör om grid data till 2d lista med squares
 
