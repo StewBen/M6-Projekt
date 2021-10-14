@@ -12,7 +12,7 @@ def main(screen):
     """Main-function for the game."""
 
     pygame.init()                 # Initiates pygame
-    pygame.font.init()            # Inits font handling
+    #pygame.font.init()            # Inits font handling
     program_running = True        # Is the program running or not
     grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
     player_1 = Snake(12, 12, 1)   # Player 1
