@@ -16,7 +16,7 @@ class Snake(Square):
         self.direction = 0
         self.length = 0
         self.tails = []
-        self.apple = Apple(self.player_id)
+        self.apple = Apple(self.player_id, self.getSquares())
 
     def move(self):
         """Move the snake by 1 step. 0 = up, 1 = right, 2 = down, 3 = left."""
@@ -34,6 +34,12 @@ class Snake(Square):
             self.x -= 1
 
         self.apple_collision()
+    
+    def getSquares(self):
+        '''Returnerar en lista med ormens squares (inkl. huvudet)'''
+        squares = [tail for tail in self.tails]
+        squares.append(Square(self.x, self.y, self.color))
+        return squares
 
     def move_tail(self):
         """Move the chain of tails forward one position."""
@@ -58,7 +64,7 @@ class Snake(Square):
         """Checks for apple collision, if collision: adds a tail and a new apple."""
         if self.x == self.apple.x and self.y == self.apple.y:
             self.length += 1
-            self.apple = Apple(self.player_id)
+            self.apple = Apple(self.player_id, self.getSquares())
 
     def tail_collision(self):
         '''Returnerar om huvudet har krockat med sin svans'''

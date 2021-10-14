@@ -9,6 +9,7 @@
 - [ ] Ökande svårighetsgrad med tiden
 - [ ] Möjlighet att starta om
 - [x] Gör om grid data till 2d lista med squares
+- [x] Kolla så att nytt äpple inte spawnar i ormen.
 
 ### Sedan multiplayer (dvs lägg till en till snake)
 - [ ] Visa vem som vann i game over text
