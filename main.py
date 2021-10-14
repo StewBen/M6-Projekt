@@ -6,6 +6,7 @@ import pygame
 from snake import Snake
 from grid import Grid
 from menu import gameover
+from button import Button
 from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE
 
 def main(screen):
@@ -57,6 +58,10 @@ def main(screen):
             grid.update(player_1)
             grid.draw_squares(screen)
             grid.draw_lines(screen)
+
+            ### TEMP BUTTON TEST:
+            test = Button(50, 50, 300, 100, 70, 'test123')
+            test.draw(screen)
 
         ### The *actual* rendering of this frame:
         pygame.display.flip()
