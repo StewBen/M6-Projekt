@@ -15,6 +15,7 @@
 - [ ] Visa vem som vann i game over text
 - [ ] Oavgjort vid huvudkrock
 - [ ] Krock med annan snake
+- [ ] Vem vann?
 
 ## Om vi får tid över:
 - [ ] Musik??
