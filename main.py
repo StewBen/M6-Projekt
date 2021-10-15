@@ -50,7 +50,6 @@ def main(screen):
             player_1.move()   # Move the snakes
             stopwatch = 0     # Reset stopwatch
             if player_1.wall_collision() or player_1.tail_collision():
-                gameover(screen)
                 break
 
             ### Resets, updates, and then draws the playing field:
@@ -66,6 +65,10 @@ def main(screen):
         ### The *actual* rendering of this frame:
         pygame.display.flip()
         clock.tick(60)
+
+    gameover(screen)
+    pygame.display.flip()
+    pygame.time.delay(2000) # Visar gameover-skärmen i 2 sek
 
 ### Initiate a "display variable" to draw things on:
 display_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
