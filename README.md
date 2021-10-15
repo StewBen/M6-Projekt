@@ -7,7 +7,7 @@
 - [x] Game over screen
 - [ ] Svårighetsgrad (ändra SPEED)
 - [x] Ökande svårighetsgrad med tiden
-- [ ] Möjlighet att starta om
+- [x] Möjlighet att starta om
 - [x] Gör om grid data till 2d lista med squares
 - [x] Kolla så att nytt äpple inte spawnar i ormen.
 
