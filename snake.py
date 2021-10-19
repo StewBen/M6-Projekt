@@ -66,6 +66,15 @@ class Snake(Square):
             self.length += 1
             self.apple = Apple(self.player_id, self.getSquares())
 
+    def snake_collision(self, other_snake):
+        '''Check if we have bumped into another snake'''
+        squares = other_snake.getSquares()
+
+        for square in squares:
+            if square.x == self.x and square.y == self.y:
+                return True
+        return False
+
     def tail_collision(self):
         '''Returnerar om huvudet har krockat med sin svans'''
         for tail in self.tails:
@@ -88,4 +97,12 @@ class Snake(Square):
             if keys[pygame.K_a] and self.direction != 1:
                 self.direction = 3
 
-        # Lägg till Player 2 controls
+        elif self.player_id == 2:
+            if keys[pygame.K_UP] and self.direction != 2:
+                self.direction = 0
+            if keys[pygame.K_RIGHT] and self.direction != 3:
+                self.direction = 1
+            if keys[pygame.K_DOWN] and self.direction != 0:
+                self.direction = 2
+            if keys[pygame.K_LEFT] and self.direction != 1:
+                self.direction = 3
