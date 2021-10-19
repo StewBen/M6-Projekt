@@ -17,6 +17,7 @@ def main(screen):
     game_over = True              # Is the game over or not
     grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
     player_1 = Snake(12, 12, 1)   # Player 1
+    player_2 = Snake(10, 12, 2)   # Player 1
 
     SPEED = 300
     ACCELERATION = 5000
@@ -32,9 +33,9 @@ def main(screen):
     multi_button.draw(screen)
     pygame.display.flip()
 
-    while program_running:
-        mode = '1p'
-        
+    mode = None
+
+    while program_running:        
         for event in pygame.event.get():
             if event.type == pygame.QUIT: # If you close the window
                 pygame.quit()             # Quits the program
@@ -54,6 +55,8 @@ def main(screen):
                     # Sätt alla spelvariabler till ursprungliga värden
                     grid.reset()
                     player_1 = Snake(12, 12, 1)
+                    if mode == '2p':
+                        player_2 = Snake(10, 12, 2)
                     SPEED = 300 
                     winner = 0
                     stopwatch = 0
@@ -70,6 +73,9 @@ def main(screen):
             keys = pygame.key.get_pressed()
             player_1.change_direction(keys)
 
+            if mode == '2p':
+                player_2.change_direction(keys)
+
             ### Checks for game events:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT: # If you close the window
@@ -82,16 +88,29 @@ def main(screen):
 
             if stopwatch > SPEED: # Every SPEED ms:
                 player_1.move()   # Move the snakes
+                
+                if mode == '2p':
+                    player_2.move()   # Move the snakes
+                
                 stopwatch = 0     # Reset stopwatch
-                if player_1.wall_collision() or player_1.tail_collision():
+                if player_1.wall_collision() or player_1.tail_collision() or player_1.snake_collision(player_2):
                     winner = 2
                     gameover_btn = gameover(screen, mode, winner)
                     game_over = True
                     break
-
+                elif mode == '2p' and (player_2.wall_collision() or player_2.tail_collision() or player_2.snake_collision(player_1)):
+                    winner = 1
+                    gameover_btn = gameover(screen, mode, winner)
+                    game_over = True
+                    break  
                 ### Resets, updates, and then draws the playing field:
                 grid.reset()
                 grid.update(player_1)
+                grid.update(player_1)
+                
+                if mode == '2p':
+                    grid.update(player_2)
+
                 grid.draw_squares(screen)
                 grid.draw_lines(screen)
 
