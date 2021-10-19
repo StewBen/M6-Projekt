@@ -13,11 +13,13 @@
 
 ### Sedan multiplayer (dvs lägg till en till snake)
 - [x] Visa vem som vann i game over text
-- [ ] Oavgjort vid huvudkrock
+- [x] Oavgjort vid huvudkrock
 - [x] Krock med annan snake
 - [x] Vem vann?
 
 ## Om vi får tid över:
+- [ ] Snygga till UI
+- [ ] Balansera svårighetsgrad, storlek
 - [ ] Musik??
 - [ ] AI motståndare?
-- [ ] Bättre trafik
+- [ ] Bättre grafik
