@@ -20,7 +20,7 @@ class Button():
         pygame.draw.rect(screen, (236,239,244), rect, 0) # White background
 
         if self.text != '':
-            font = pygame.font.Font('fonts\Mario-Kart-DS.ttf', self.fontsize)
+            font = pygame.font.Font('fonts/Mario-Kart-DS.ttf', self.fontsize)
             text = font.render(self.text, True, (10,10,10))                      # Black text
             screen.blit(text, (self.x + (self.width  - text.get_width())  // 2,  # Text X-pos
                                self.y + (self.height - text.get_height()) // 2)) # Text Y-pos
