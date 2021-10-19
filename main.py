@@ -7,14 +7,14 @@ from snake import Snake
 from grid import Grid
 from menu import gameover
 from button import Button
-from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE
+from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE, BLACK
 
 def main(screen):
     """Main-function for the game."""
     pygame.init()                 # Initiates pygame
     pygame.font.init()            # Inits font handling
     program_running = True        # Is the program running or not
-    game_over = False              # Is the game over or not
+    game_over = True              # Is the game over or not
     grid = Grid(GRID_SIZE, WIDTH, SCREEN_WIDTH) # Initates the grid variable with black colors
     player_1 = Snake(12, 12, 1)   # Player 1
 
@@ -26,6 +26,11 @@ def main(screen):
     ### Sets up an event every ACCELERATION ms to increase snake speed:
     accelerate_event = pygame.USEREVENT
     pygame.time.set_timer(accelerate_event, ACCELERATION)
+     ### Main menu: (BÖR FLYTTAS UT!)
+    screen.fill(BLACK)
+    single_button.draw(screen)
+    multi_button.draw(screen)
+    pygame.display.flip()
 
     while program_running:
         mode = '1p'
@@ -36,7 +41,15 @@ def main(screen):
                 return None               # Solves odd error
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                # Kolla om game_over knapp har blivit klickad 
+                # Kolla om game_over knapp har blivit klickad:
+                if game_over and single_button.is_over(event.pos):
+                    mode = '1p'
+                    game_over = False
+
+                if game_over and multi_button.is_over(event.pos):
+                    mode = '2p'
+                    game_over = False
+
                 if game_over and gameover_btn.is_over(event.pos):
                     # Sätt alla spelvariabler till ursprungliga värden
                     grid.reset()
@@ -89,6 +102,8 @@ def main(screen):
 ### Initiate a "display variable" to draw things on:
 display_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Snake Duel') # The title of the window
+single_button = Button(250, 200, 200, 100, 30, 'singleplayer')
+multi_button = Button(250, 500, 200, 100, 30, 'multiplayer')
 
 ### Starts the game!
 main(display_window)
