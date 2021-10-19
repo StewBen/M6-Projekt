@@ -31,6 +31,10 @@ def main(screen):
         mode = '1p'
         
         for event in pygame.event.get():
+            if event.type == pygame.QUIT: # If you close the window
+                pygame.quit()             # Quits the program
+                return None               # Solves odd error
+
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # Kolla om game_over knapp har blivit klickad 
                 if game_over and gameover_btn.is_over(event.pos):

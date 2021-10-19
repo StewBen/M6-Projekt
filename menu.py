@@ -42,5 +42,5 @@ def gameover(screen, mode, winner):
     return restart
 
 def header(text, color):
-    font = pygame.font.Font("fonts\comic.ttf", 60)
+    font = pygame.font.Font("fonts/comic.ttf", 60)
     return font.render(text, True, color)
