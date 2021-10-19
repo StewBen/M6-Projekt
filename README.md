@@ -12,10 +12,10 @@
 - [x] Kolla så att nytt äpple inte spawnar i ormen.
 
 ### Sedan multiplayer (dvs lägg till en till snake)
-- [ ] Visa vem som vann i game over text
+- [x] Visa vem som vann i game over text
 - [ ] Oavgjort vid huvudkrock
-- [ ] Krock med annan snake
-- [ ] Vem vann?
+- [x] Krock med annan snake
+- [x] Vem vann?
 
 ## Om vi får tid över:
 - [ ] Musik??
