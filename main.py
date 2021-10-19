@@ -93,7 +93,13 @@ def main(screen):
                     player_2.move()   # Move the snakes
                 
                 stopwatch = 0     # Reset stopwatch
-                if player_1.wall_collision() or player_1.tail_collision() or player_1.snake_collision(player_2):
+
+                if player_1.x == player_2.x and player_1.y == player_2.y:
+                    winner = 0
+                    gameover_btn = gameover(screen, mode, winner)
+                    game_over = True
+                    break
+                elif player_1.wall_collision() or player_1.tail_collision() or player_1.snake_collision(player_2):
                     winner = 2
                     gameover_btn = gameover(screen, mode, winner)
                     game_over = True

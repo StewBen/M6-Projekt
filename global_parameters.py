@@ -16,4 +16,4 @@ ORANGE = (208,135,112)
 GREEN = (143,188,187)
 
 # Command for call_graph:
-# pyan3 apple.py global_parameters.py grid.py main.py snake.py tail.py --uses --no-defines --colored --nested-groups  --html > myuses.html
+# pyan3 apple.py button.py global_parameters.py grid.py main.py menu.py snake.py square.py tail.py --uses --no-defines --colored --nested-groups  --html > myuses.html
