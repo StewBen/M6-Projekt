@@ -23,3 +23,17 @@
 - [ ] Musik??
 - [ ] AI motståndare?
 - [ ] Bättre grafik
+
+## Till powerpointen:
+- Introduktion:
+- Vad är snake? Hur fungerar vår variant? Hur vinner man t.ex.?
+- Livedemo: Kör en runda mot varandra, ev. låt publiken testa
+- Kort redogörelse för hur ni arbetat och delat upp arbetet:
+    - Först ville ha en prototyp i singleplayer
+    - Sedan "bara" la till en till orm
+    - Samarbetade via Git (svårigheter?)
+- Intressanta problem ni stött på:
+    - Dataobjektet grid som består av squares (Einar)
+    - Hur ormen faktiskt rör sig (Viktor)
+- Reflektion kring era individuella lärandemål
+- Frågestund
