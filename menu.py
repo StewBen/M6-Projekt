@@ -10,12 +10,12 @@ def gameover(screen, mode, winner):
 
     # Bestäm vad gameover texten ska säga
     if mode == '1p':
-        text = 'Game over'
+        text = 'game over'
     elif mode == '2p':
         if winner != 0:
-            text = f'Player {winner} won!'
+            text = f'player {winner} won!'
         else:
-            text = 'Tie!'
+            text = 'tie!'
 
     textsurface = header(text, (255, 0, 0))
 
@@ -34,7 +34,7 @@ def gameover(screen, mode, winner):
         pygame.Surface.get_width(textsurface),
         pygame.Surface.get_height(textsurface),
         40,
-        'Starta om?'
+        'starta om?'
     )
     restart.draw(screen)
 
@@ -42,5 +42,5 @@ def gameover(screen, mode, winner):
     return restart
 
 def header(text, color):
-    font = pygame.font.Font("fonts/comic.ttf", 60)
+    font = pygame.font.Font("fonts/Mario-Kart-DS.ttf", 60)
     return font.render(text, True, color)

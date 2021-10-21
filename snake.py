@@ -17,6 +17,7 @@ class Snake(Square):
         self.length = 0
         self.tails = []
         self.apple = Apple(self.player_id, self.getSquares())
+        self.moved = False
 
     def move(self):
         """Move the snake by 1 step. 0 = up, 1 = right, 2 = down, 3 = left."""
@@ -24,14 +25,16 @@ class Snake(Square):
         self.move_tail()
 
         ### Moves head:
-        if self.direction == 0:
-            self.y -= 1
-        elif self.direction == 1:
-            self.x += 1
-        elif self.direction == 2:
-            self.y += 1
-        elif self.direction == 3:
-            self.x -= 1
+        if not self.moved:
+            if self.direction == 0:
+                self.y -= 1
+            elif self.direction == 1:
+                self.x += 1
+            elif self.direction == 2:
+                self.y += 1
+            elif self.direction == 3:
+                self.x -= 1
+        self.moved = True
 
         self.apple_collision()
     
@@ -79,7 +82,7 @@ class Snake(Square):
         '''Returnerar om huvudet har krockat med sin svans'''
         for tail in self.tails:
             if tail.x == self.x and tail.y == self.y:
-                return True 
+                return True
         return False
 
     def change_direction(self, keys):

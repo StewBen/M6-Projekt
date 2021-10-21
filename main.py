@@ -5,7 +5,7 @@
 import pygame
 from snake import Snake
 from grid import Grid
-from menu import gameover
+from menu import gameover, header
 from button import Button
 from global_parameters import SCREEN_WIDTH, SCREEN_HEIGHT, WIDTH, GRID_SIZE, BLACK
 
@@ -27,7 +27,11 @@ def main(screen):
     ### Sets up an event every ACCELERATION ms to increase snake speed:
     accelerate_event = pygame.USEREVENT
     pygame.time.set_timer(accelerate_event, ACCELERATION)
-     ### Main menu: (BÖR FLYTTAS UT!)
+
+    ### Main menu: (BÖR FLYTTAS UT!)
+    header('SNAKE DUEL', (255,0,0))
+    single_button = Button(250, 200, 200, 100, 30, 'singleplayer')
+    multi_button = Button(250, 500, 200, 100, 30, 'multiplayer')
     screen.fill(BLACK)
     single_button.draw(screen)
     multi_button.draw(screen)
@@ -65,6 +69,9 @@ def main(screen):
 
         ### Our main-loop, every iteration of the loop = 1 frame:
         while not game_over:
+
+            player_1.moved= False
+            player_2.moved= False
 
             ### Adds time since last frame to stopwatch:
             stopwatch += clock.get_time()
@@ -127,8 +134,6 @@ def main(screen):
 ### Initiate a "display variable" to draw things on:
 display_window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption('Snake Duel') # The title of the window
-single_button = Button(250, 200, 200, 100, 30, 'singleplayer')
-multi_button = Button(250, 500, 200, 100, 30, 'multiplayer')
 
 ### Starts the game!
 main(display_window)

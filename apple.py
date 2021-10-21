@@ -7,7 +7,10 @@ from square import Square
 
 class Apple(Square):
     """An apple that snakes hunt for to grow."""
+
     def __init__(self, player_id, snakeSquares):
+        self.id = player_id
+
         # Kollar så att den inte spawnar i ormen
         while True:
             x = randint(0, GRID_SIZE-1)
@@ -18,5 +21,3 @@ class Apple(Square):
 
         color = ORANGE if player_id == 1 else GREEN
         super().__init__(x, y, color) # Setup square 
-
-        self.id = player_id

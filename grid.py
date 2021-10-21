@@ -4,13 +4,13 @@
 import pygame
 from global_parameters import WHITE, BLACK
 from square import Square
+
 class Grid:
     """Color data stored in a grid."""
     def __init__(self, squares, width, size):
         self.squares = squares
         self.width = width
         self.size = size
-        
         self.reset()
 
     def reset(self):
@@ -19,7 +19,6 @@ class Grid:
     
     def update(self, player_1):
         """Updates the data of grid."""
-
         self.data[player_1.x][player_1.y] = player_1
         self.data[player_1.apple.x][player_1.apple.y] = player_1.apple
         for tail in player_1.tails:
@@ -33,6 +32,6 @@ class Grid:
 
     def draw_lines(self, screen):
         """Draws grid lines on the playing field."""
-        for i, col in enumerate(self.data):
+        for i, _ in enumerate(self.data):
             pygame.draw.line(screen, WHITE, (i * self.width, 0), (i * self.width, self.size))
             pygame.draw.line(screen, WHITE, (0, i* self.width), (self.size, i * self.width))
